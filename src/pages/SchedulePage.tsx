@@ -226,7 +226,7 @@ export function SchedulePage() {
 
         {/* Content */}
         <ScrollArea className="flex-1 min-h-0">
-          <div className="p-4 lg:p-8 space-y-6 max-w-5xl mx-auto overflow-x-hidden" style={{ width: '100%', maxWidth: '100vw' }}>
+          <div className="p-4 lg:p-8 space-y-6 max-w-5xl mx-auto w-full overflow-x-hidden">
             {/* Page header */}
             <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
               <div>

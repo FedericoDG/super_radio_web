@@ -1,4 +1,4 @@
-import { Bell, Calendar, Settings, BookOpen, Radio, Menu, LogOut } from "lucide-react";
+import { Bell, Calendar, Settings, BookOpen, Radio, Menu, LogOut, KeyRound } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
@@ -74,14 +74,21 @@ function SidebarContent() {
         <SidebarItem icon={<BookOpen size={16} />} label="Programas" to="/panel/programs" />
         <SidebarItem icon={<Calendar size={16} />} label="Programación" to="/panel/schedule" />
         <SidebarItem icon={<Bell size={16} />} label="Notificaciones" to="/panel/notify" />
+        <SidebarItem icon={<KeyRound size={16} />} label="Mi cuenta" to="/panel/password" />
       </nav>
 
-      <div className="mt-auto pt-8">
+      <div className="mt-auto pt-8 space-y-4">
         <SidebarItem
           icon={<LogOut size={16} />}
           label="Cerrar sesión"
           onClick={handleLogout}
         />
+        <div className="border-t border-app-border pt-4 px-1">
+          <p className="text-[0.7rem] text-app-muted leading-tight">
+            © {new Date().getFullYear()} Federico González
+          </p>
+          <p className="text-[0.65rem] text-app-muted/60 truncate">federicodg80@gmail.com</p>
+        </div>
       </div>
     </div>
   );

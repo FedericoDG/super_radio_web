@@ -226,7 +226,7 @@ export function ProgramsPage() {
             {isLoading ? (
               <ProgramsSkeletonGrid />
             ) : programs.length === 0 ? (
-              <EmptyState onCreateClick={openCreate} />
+              <EmptyState />
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-4 pb-10">
                 {programs.map((program) => (
@@ -345,7 +345,7 @@ function ProgramsSkeletonGrid() {
   );
 }
 
-function EmptyState({ onCreateClick }: { onCreateClick: () => void; }) {
+function EmptyState() {
   return (
     <div className="flex flex-col items-center justify-center py-24 text-center gap-5">
       <div className="w-16 h-16 bg-slate-800 rounded-2xl flex items-center justify-center">
@@ -357,14 +357,6 @@ function EmptyState({ onCreateClick }: { onCreateClick: () => void; }) {
           Creá tu primer programa y aparecerá acá.
         </p>
       </div>
-      <Button
-        size="sm"
-        className="bg-app-accent hover:bg-app-accent-hover text-white gap-2"
-        onClick={onCreateClick}
-      >
-        <Plus size={14} />
-        Crear nuevo programa
-      </Button>
     </div>
   );
 }

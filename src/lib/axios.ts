@@ -18,7 +18,10 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
   (error) => {
-    if (error.response?.status === 401) {
+    const url = error.config?.url ?? "";
+    const skipRedirect = url.includes("/users/password") || url.includes("/users/login");
+
+    if (error.response?.status === 401 && !skipRedirect) {
       localStorage.removeItem("token");
       window.location.href = "/";
     }

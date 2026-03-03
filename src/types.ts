@@ -96,3 +96,9 @@ export interface ApiErrorResponse {
   status: "error";
   message: string;
 }
+export interface UpdatePasswordPayload {
+  currentPassword: string;
+  newPassword: string;
+}
+
+export type UpdatePasswordApiResponse = ApiResponse<{ message: string }>;

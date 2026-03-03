@@ -151,24 +151,22 @@ export function NotifyPage() {
                       </p>
                     </div>
                   </CardContent>
+
+                  <div className="flex justify-end px-6 pb-6">
+                    <Button
+                      type="submit"
+                      disabled={isSending}
+                      className="bg-app-accent hover:bg-app-accent-hover text-white px-8 gap-2"
+                    >
+                      {isSending ? (
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      ) : (
+                        <Send size={16} />
+                      )}
+                      Enviar Push
+                    </Button>
+                  </div>
                 </Card>
-
-
-                {/* Submit */}
-                <div className="mt-8 pt-6 border-t border-app-border/50 flex justify-end">
-                  <Button
-                    type="submit"
-                    disabled={isSending}
-                    className="bg-app-accent hover:bg-app-accent-hover text-white px-8 gap-2"
-                  >
-                    {isSending ? (
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    ) : (
-                      <Send size={16} />
-                    )}
-                    Enviar Push
-                  </Button>
-                </div>
               </form>
             </div>
           </div>
