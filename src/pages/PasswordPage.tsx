@@ -43,12 +43,9 @@ export function PasswordPage() {
     handleSubmit,
     formState: { errors, isSubmitting },
     reset,
-    watch,
   } = useForm<PasswordFormValues>({
     defaultValues: { currentPassword: "", newPassword: "", confirmPassword: "" },
   });
-
-  const newPasswordValue = watch("newPassword");
 
   const onSubmit = async (data: PasswordFormValues) => {
     try {
@@ -218,8 +215,8 @@ export function PasswordPage() {
                           className="pl-9 pr-10 bg-app-input border-app-border focus-visible:ring-app-accent text-white"
                           {...register("confirmPassword", {
                             required: "Debés repetir la nueva contraseña",
-                            validate: (value) =>
-                              value === newPasswordValue || "Las contraseñas no coinciden",
+                            validate: (value, formValues) =>
+                              value === formValues.newPassword || "Las contraseñas no coinciden",
                           })}
                         />
                         <button

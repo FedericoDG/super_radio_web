@@ -61,13 +61,6 @@ export function ProgramsPage() {
   const updateMutation = useUpdateProgramMutation();
   const deleteMutation = useDeleteProgramMutation();
 
-  /* ── handlers ── */
-  const openCreate = () => {
-    setEditTarget(null);
-    reset({ name: "", description: "" });
-    setSheetOpen(true);
-  };
-
   const openEdit = (program: Program) => {
     setEditTarget(program);
     reset({ name: program.name, description: program.description });
