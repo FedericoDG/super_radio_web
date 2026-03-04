@@ -96,8 +96,10 @@ export function ProgramsPage() {
       });
       toast.success(`"${deleteTarget.name}" eliminado`);
       setDeleteTarget(null);
-    } catch {
-      toast.error("No se pudo eliminar el programa.");
+    } catch (error) {
+      const axiosError = error as { response?: { data?: { message?: string; }; }; };
+      const errorMessage = axiosError.response?.data?.message || "No se pudo eliminar el programa.";
+      toast.error(errorMessage);
     }
   };
 
