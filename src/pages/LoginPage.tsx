@@ -165,10 +165,7 @@ export function LoginPage() {
           <CardFooter className="flex flex-col gap-4">
             <Separator className="bg-app-border" />
             <p className="text-xs text-slate-500 text-center">
-              Desarrollado por Federico González (
-              <a href="mailto:federicodg80@gmail.com" className="underline hover:text-app-accent">
-                federicodg80@gmail.com
-              </a>)
+              Maragata FM
             </p>
           </CardFooter>
         </Card>
