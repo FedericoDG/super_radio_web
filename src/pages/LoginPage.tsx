@@ -70,10 +70,10 @@ export function LoginPage() {
         <Card className="w-full max-w-md border border-app-border bg-app-card/80 backdrop-blur-xl shadow-2xl rounded-2xl">
           <CardHeader className="space-y-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight">
-              Welcome Back
+              Radio - Panel de Administración
             </h1>
             <p className="text-sm text-app-muted">
-              Manage your radio station and broadcast streams.
+              Administrá tu estación de radio.
             </p>
           </CardHeader>
 
@@ -84,7 +84,7 @@ export function LoginPage() {
             >
               {/* Email */}
               <div className="space-y-2">
-                <Label htmlFor="email">Email Address</Label>
+                <Label htmlFor="email">Correo electrónico</Label>
                 <div className="relative">
                   <Mail className="absolute left-3 top-3 h-4 w-4 text-slate-400" />
                   <Input
@@ -107,13 +107,7 @@ export function LoginPage() {
               {/* Password */}
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <Label htmlFor="password">Password</Label>
-                  <button
-                    type="button"
-                    className="text-xs text-app-accent hover:underline"
-                  >
-                    Forgot password?
-                  </button>
+                  <Label htmlFor="password">Contraseña</Label>
                 </div>
 
                 <div className="relative">
@@ -146,17 +140,6 @@ export function LoginPage() {
                 )}
               </div>
 
-              {/* Remember me */}
-              {/* <div className="flex items-center space-x-2">
-                <Checkbox id="remember" />
-                <Label
-                  htmlFor="remember"
-                  className="text-sm text-slate-400 font-normal"
-                >
-                  Keep me signed in for 30 days
-                </Label>
-              </div> */}
-
               {/* Error */}
               {errorMessage && (
                 <Alert variant="destructive">
@@ -173,8 +156,8 @@ export function LoginPage() {
                 className="w-full bg-app-accent hover:bg-app-accent-hover text-white font-medium"
               >
                 {isSubmitting || loginMutation.isPending
-                  ? "Signing in..."
-                  : "Sign In"}
+                  ? "Iniciando sesión..."
+                  : "Iniciar sesión"}
               </Button>
             </form>
           </CardContent>
@@ -182,7 +165,10 @@ export function LoginPage() {
           <CardFooter className="flex flex-col gap-4">
             <Separator className="bg-app-border" />
             <p className="text-xs text-slate-500 text-center">
-              Secure access only • 256-bit SSL • Encrypted
+              Desarrollado por Federico González (
+              <a href="mailto:federicodg80@gmail.com" className="underline hover:text-app-accent">
+                federicodg80@gmail.com
+              </a>)
             </p>
           </CardFooter>
         </Card>
