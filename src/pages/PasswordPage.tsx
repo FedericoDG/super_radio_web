@@ -149,6 +149,7 @@ export function PasswordPage() {
                           id="currentPassword"
                           type={showCurrentPassword ? "text" : "password"}
                           placeholder="Tu contraseña actual"
+                          autoComplete="new-password"
                           className="pl-9 pr-10 bg-app-input border-app-border focus-visible:ring-app-accent text-white"
                           {...register("currentPassword", {
                             required: "La contraseña actual es obligatoria",
@@ -176,6 +177,7 @@ export function PasswordPage() {
                           id="newPassword"
                           type={showNewPassword ? "text" : "password"}
                           placeholder="Mínimo 6 caracteres"
+                          autoComplete="new-password"
                           className="pl-9 pr-10 bg-app-input border-app-border focus-visible:ring-app-accent text-white"
                           {...register("newPassword", {
                             required: "La nueva contraseña es obligatoria",
@@ -212,6 +214,7 @@ export function PasswordPage() {
                           id="confirmPassword"
                           type={showConfirmPassword ? "text" : "password"}
                           placeholder="Repetí la nueva contraseña"
+                          autoComplete="new-password"
                           className="pl-9 pr-10 bg-app-input border-app-border focus-visible:ring-app-accent text-white"
                           {...register("confirmPassword", {
                             required: "Debés repetir la nueva contraseña",
