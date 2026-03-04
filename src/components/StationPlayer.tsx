@@ -1,94 +1,25 @@
-import { useState, useRef, useEffect } from "react";
 import { Play, Pause, Volume2, VolumeX, AlertCircle, Radio } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Slider } from "@/components/ui/slider";
 import { Badge } from "@/components/ui/badge";
 import type { Station } from "@/types";
+import { useAudioPlayer } from "@/hooks/use-audio-player";
 
 interface StationPlayerProps {
   station: Station;
 }
 
-type PlayerStatus = "idle" | "connecting" | "live" | "offline";
-
 export function StationPlayer({ station }: StationPlayerProps) {
-  const [isPlaying, setIsPlaying] = useState(false);
-  const [volume, setVolume] = useState([80]);
-  const [isMuted, setIsMuted] = useState(false);
-  const [status, setStatus] = useState<PlayerStatus>("idle");
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-
-  // Initialize or update audio element when mount or URL changes
-  useEffect(() => {
-    if (!audioRef.current && station.streamUrl) {
-      audioRef.current = new Audio();
-    }
-  }, [station.streamUrl]);
-
-  // Handle stream URL changes while playing
-  useEffect(() => {
-    if (audioRef.current && station.streamUrl) {
-      const wasPlaying = isPlaying;
-      audioRef.current.src = station.streamUrl;
-      audioRef.current.load();
-      if (wasPlaying) {
-        audioRef.current.play().catch(console.error);
-      }
-    }
-  }, [station.streamUrl, isPlaying]);
-
-  // Audio Event Listeners
-  useEffect(() => {
-    const audio = audioRef.current;
-    if (!audio) return;
-
-    const handleCanPlay = () => setStatus("live");
-    const handlePlaying = () => setStatus("live");
-    const handleLoadStart = () => setStatus("connecting");
-    const handleWaiting = () => setStatus("connecting");
-    const handleError = () => {
-      setStatus("offline");
-      setIsPlaying(false);
-    };
-
-    audio.addEventListener("canplay", handleCanPlay);
-    audio.addEventListener("playing", handlePlaying);
-    audio.addEventListener("loadstart", handleLoadStart);
-    audio.addEventListener("waiting", handleWaiting);
-    audio.addEventListener("error", handleError);
-
-    return () => {
-      audio.removeEventListener("canplay", handleCanPlay);
-      audio.removeEventListener("playing", handlePlaying);
-      audio.removeEventListener("loadstart", handleLoadStart);
-      audio.removeEventListener("waiting", handleWaiting);
-      audio.removeEventListener("error", handleError);
-    };
-  }, []);
-
-  // Update volume
-  useEffect(() => {
-    if (audioRef.current) {
-      audioRef.current.volume = isMuted ? 0 : volume[0] / 100;
-    }
-  }, [volume, isMuted]);
-
-  const togglePlay = () => {
-    if (!audioRef.current) return;
-
-    if (isPlaying) {
-      audioRef.current.pause();
-    } else {
-      audioRef.current.play().catch((err) => {
-        console.error("Playback failed:", err);
-        setStatus("offline");
-      });
-    }
-    setIsPlaying(!isPlaying);
-  };
-
-  const toggleMute = () => setIsMuted(!isMuted);
+  const {
+    isPlaying,
+    volume,
+    setVolume,
+    isMuted,
+    toggleMute,
+    status,
+    togglePlay,
+  } = useAudioPlayer(station.streamUrl);
 
   const getStatusBadge = () => {
     if (!station.streamUrl) {
@@ -120,7 +51,7 @@ export function StationPlayer({ station }: StationPlayerProps) {
                   alt={`${station.name} logo`}
                   className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity"
                   onError={(e) => {
-                    (e.target as HTMLImageElement).src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjM2I4MmY2IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiPjwvY2lyY2xlPjxwb2x5bGluZSBwb2ludHM9IjEyIDYgMTIgMTIgMTYgMTQiPjwvcG9seWxpbmU+PC9zdmc+'; // generic fallback
+                    (e.target as HTMLImageElement).src = 'data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjM2I4MmY2IiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PGNpcmNsZSBjeD0iMTIiIGN5PSIxMiIgcj0iMTAiPjwvY2lyY2xlPjxwb2x5bGluZSBwb2ludHM9IjEyIDYgMTIgMTIgMTYgMTQiPjwvcG9seWxpbmU+PC9zdmc+';
                   }}
                 />
               </div>
