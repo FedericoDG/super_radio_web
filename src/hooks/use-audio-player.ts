@@ -88,12 +88,11 @@ export function useAudioPlayer(streamUrl: string | undefined) {
       return;
     }
 
-    // If no source loaded yet, or URL changed while paused, set it
-    if (currentStreamUrl !== url) {
-      currentStreamUrl = url;
-      globalAudio.src = url;
-      globalAudio.load();
-    }
+    // Always reload the stream so playback resumes at the current
+    // live point instead of continuing from the stale buffer.
+    currentStreamUrl = url;
+    globalAudio.src = url;
+    globalAudio.load();
 
     globalAudio.play().catch((err) => {
       console.error("Playback failed:", err);
