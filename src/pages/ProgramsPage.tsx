@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "sonner";
-import { Loader2, Plus, Pencil, Trash2, Tv } from "lucide-react";
+import { Loader2, Plus, Pencil, Trash2, Radio as RadioIcon } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
@@ -221,7 +221,7 @@ export function ProgramsPage() {
             ) : programs.length === 0 ? (
               <EmptyState />
             ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pb-10">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 pb-10">
                 {programs.map((program) => (
                   <ProgramCard
                     key={program.id}
@@ -286,41 +286,45 @@ function ProgramCard({
 }) {
   return (
     <Card className="bg-app-card border-app-border group relative flex flex-col hover:border-app-accent/50 hover:bg-app-surface transition-all duration-300 w-full min-w-0 max-w-full overflow-hidden shadow-sm hover:shadow-md">
-      <CardContent className="p-4 flex flex-col h-full relative">
-        <div className="flex items-start gap-3 pr-14 mb-3">
-          <div className="w-10 h-10 rounded-full bg-app-surface border border-app-border flex items-center justify-center shrink-0 group-hover:bg-app-accent/10 group-hover:border-app-accent/30 transition-colors">
-            <Tv className="w-5 h-5 text-app-accent" />
+      <CardContent className="p-4 flex flex-col h-full">
+        {/* Header row with Title and Actions */}
+        <div className="flex items-start justify-between gap-3 mb-3 shrink-0">
+          <div className="flex items-start gap-3 min-w-0">
+            <div className="w-10 h-10 rounded-full bg-app-surface border border-app-border flex items-center justify-center shrink-0 group-hover:bg-app-accent/10 group-hover:border-app-accent/30 transition-colors">
+              <RadioIcon className="w-5 h-5 text-app-accent" />
+            </div>
+            <div className="pt-0.5 min-w-0">
+              <h3 className="font-semibold text-white leading-tight line-clamp-2">{program.name}</h3>
+            </div>
           </div>
-          <div>
-            <h3 className="font-semibold text-white leading-tight line-clamp-2 mt-0.5">{program.name}</h3>
+
+          {/* Actions inline (no overlap with description) */}
+          <div className="flex items-center gap-1 shrink-0 opacity-80 group-hover:opacity-100 transition-opacity">
+            <Button
+              size="icon"
+              variant="ghost"
+              className="h-8 w-8 text-slate-400 hover:text-white hover:bg-app-border rounded-full bg-app-surface/50 border border-transparent hover:border-app-border shrink-0"
+              onClick={onEdit}
+              aria-label="Editar programa"
+            >
+              <Pencil size={14} />
+            </Button>
+            <Button
+              size="icon"
+              variant="ghost"
+              className="h-8 w-8 text-slate-400 hover:text-red-400 hover:bg-red-500/10 hover:border-red-500/30 rounded-full bg-app-surface/50 border border-transparent shrink-0"
+              onClick={onDelete}
+              aria-label="Eliminar programa"
+            >
+              <Trash2 size={14} />
+            </Button>
           </div>
         </div>
 
-        <p className="text-app-muted text-sm line-clamp-3 leading-relaxed flex-1">
+        {/* Description body */}
+        <p className="text-app-muted text-sm line-clamp-3 leading-relaxed flex-1 mt-1">
           {program.description}
         </p>
-
-        {/* Actions - Now more visible on hover */}
-        <div className="absolute top-4 right-4 flex flex-col gap-1.5 opacity-60 group-hover:opacity-100 transition-opacity">
-          <Button
-            size="icon"
-            variant="ghost"
-            className="h-8 w-8 text-slate-400 hover:text-white hover:bg-app-border rounded-full bg-app-surface/50 backdrop-blur-sm border border-transparent hover:border-app-border"
-            onClick={onEdit}
-            aria-label="Editar programa"
-          >
-            <Pencil size={14} />
-          </Button>
-          <Button
-            size="icon"
-            variant="ghost"
-            className="h-8 w-8 text-slate-400 hover:text-red-400 hover:bg-red-500/10 hover:border-red-500/30 rounded-full bg-app-surface/50 backdrop-blur-sm border border-transparent"
-            onClick={onDelete}
-            aria-label="Eliminar programa"
-          >
-            <Trash2 size={14} />
-          </Button>
-        </div>
       </CardContent>
     </Card>
   );
@@ -328,7 +332,7 @@ function ProgramCard({
 
 function ProgramsSkeletonGrid() {
   return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+    <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
       {Array.from({ length: 8 }).map((_, i) => (
         <Card key={i} className="bg-app-card border-app-border w-full min-w-0 max-w-full overflow-hidden animate-pulse">
           <CardContent className="p-4 flex flex-col h-full relative">
@@ -346,7 +350,7 @@ function ProgramsSkeletonGrid() {
               <div className="h-3 bg-slate-800 rounded w-4/5" />
             </div>
 
-            <div className="absolute top-4 right-4 flex flex-col gap-1.5">
+            <div className="absolute top-4 right-4 flex gap-1.5">
               <div className="h-8 w-8 rounded-full bg-slate-800" />
               <div className="h-8 w-8 rounded-full bg-slate-800" />
             </div>
@@ -361,7 +365,7 @@ function EmptyState() {
   return (
     <div className="flex flex-col items-center justify-center py-24 text-center gap-5">
       <div className="w-16 h-16 bg-slate-800 rounded-2xl flex items-center justify-center">
-        <Tv size={28} className="text-slate-500" />
+        <RadioIcon size={28} className="text-slate-500" />
       </div>
       <div>
         <p className="text-lg font-semibold text-white">Todavía no hay programas</p>
