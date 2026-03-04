@@ -113,3 +113,12 @@ export function useAudioPlayer(streamUrl: string | undefined) {
     togglePlay,
   };
 }
+
+// ── Expose a global stop function to be used outside components ──
+// Useful for stopping audio on logout or unrecoverable errors.
+export function stopGlobalAudio() {
+  if (!globalAudio.paused) {
+    globalAudio.pause();
+  }
+}
+

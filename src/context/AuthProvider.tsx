@@ -6,6 +6,7 @@ import {
 
 import type { User } from "@/types";
 import { AuthContext } from "./AuthContext";
+import { stopGlobalAudio } from "@/hooks/use-audio-player";
 
 export function AuthProvider({ children }: { children: ReactNode; }) {
   const [user, setUser] = useState<User | null>(() => {
@@ -37,6 +38,7 @@ export function AuthProvider({ children }: { children: ReactNode; }) {
     setUser(null);
     setStationId(null);
     setIsAuthenticated(false);
+    stopGlobalAudio();
   }, []);
 
   return (
