@@ -16,6 +16,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 import { useAuth } from "@/context/AuthContext";
 import { useProgramsQuery } from "@/hooks/use-programs";
@@ -617,24 +618,39 @@ function ScheduleCard({
 
       {/* Actions */}
       <div className="flex items-center gap-1 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity shrink-0">
-        <Button
-          size="icon"
-          variant="ghost"
-          className="h-7 w-7 text-slate-500 hover:text-white hover:bg-app-border"
-          onClick={onEdit}
-          aria-label="Editar bloque"
-        >
-          <Pencil size={13} />
-        </Button>
-        <Button
-          size="icon"
-          variant="ghost"
-          className="h-7 w-7 text-slate-500 hover:text-red-400 hover:bg-app-border"
-          onClick={onDelete}
-          aria-label="Eliminar bloque"
-        >
-          <Trash2 size={13} />
-        </Button>
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              size="icon"
+              variant="ghost"
+              className="h-7 w-7 text-slate-500 hover:text-white hover:bg-app-border"
+              onClick={onEdit}
+              aria-label="Editar bloque"
+            >
+              <Pencil size={13} />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent side="top" className="bg-app-card text-white border-app-border text-xs px-2 py-1">
+            Editar bloque
+          </TooltipContent>
+        </Tooltip>
+
+        <Tooltip>
+          <TooltipTrigger asChild>
+            <Button
+              size="icon"
+              variant="ghost"
+              className="h-7 w-7 text-slate-500 hover:text-red-400 hover:bg-app-border"
+              onClick={onDelete}
+              aria-label="Eliminar bloque"
+            >
+              <Trash2 size={13} />
+            </Button>
+          </TooltipTrigger>
+          <TooltipContent side="top" className="bg-red-950/80 text-red-400 border-red-900/50 text-xs px-2 py-1">
+            Eliminar bloque
+          </TooltipContent>
+        </Tooltip>
       </div>
     </div>
   );

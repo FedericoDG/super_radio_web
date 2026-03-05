@@ -19,6 +19,7 @@ import {
   DialogDescription,
   DialogFooter,
 } from "@/components/ui/dialog";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/components/ui/tooltip";
 
 import { useAuth } from "@/context/AuthContext";
 import type { Program } from "@/types";
@@ -302,24 +303,39 @@ function ProgramCard({
 
           {/* Actions inline (no overlap with description) */}
           <div className="flex items-center gap-1 shrink-0 opacity-80 group-hover:opacity-100 transition-opacity">
-            <Button
-              size="icon"
-              variant="ghost"
-              className="h-8 w-8 text-slate-400 hover:text-white hover:bg-app-border rounded-full bg-app-surface/50 border border-transparent hover:border-app-border shrink-0"
-              onClick={onEdit}
-              aria-label="Editar programa"
-            >
-              <Pencil size={14} />
-            </Button>
-            <Button
-              size="icon"
-              variant="ghost"
-              className="h-8 w-8 text-slate-400 hover:text-red-400 hover:bg-red-500/10 hover:border-red-500/30 rounded-full bg-app-surface/50 border border-transparent shrink-0"
-              onClick={onDelete}
-              aria-label="Eliminar programa"
-            >
-              <Trash2 size={14} />
-            </Button>
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  className="h-8 w-8 text-slate-400 hover:text-white hover:bg-app-border rounded-full bg-app-surface/50 border border-transparent hover:border-app-border shrink-0"
+                  onClick={onEdit}
+                  aria-label="Editar programa"
+                >
+                  <Pencil size={14} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="top" className="bg-app-card text-white border-app-border text-xs px-2 py-1">
+                Editar programa
+              </TooltipContent>
+            </Tooltip>
+
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <Button
+                  size="icon"
+                  variant="ghost"
+                  className="h-8 w-8 text-slate-400 hover:text-red-400 hover:bg-red-500/10 hover:border-red-500/30 rounded-full bg-app-surface/50 border border-transparent shrink-0"
+                  onClick={onDelete}
+                  aria-label="Eliminar programa"
+                >
+                  <Trash2 size={14} />
+                </Button>
+              </TooltipTrigger>
+              <TooltipContent side="top" className="bg-red-950/80 text-red-400 border-red-900/50 text-xs px-2 py-1">
+                Eliminar programa
+              </TooltipContent>
+            </Tooltip>
           </div>
         </div>
 

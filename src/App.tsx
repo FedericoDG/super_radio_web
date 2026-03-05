@@ -3,13 +3,16 @@ import { queryClient } from "@/lib/query-client";
 import { AuthProvider } from "@/context/AuthProvider";
 import { AppRouter } from "@/router/AppRouter";
 import { Toaster } from "@/components/ui/sonner";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <AppRouter />
-        <Toaster theme="dark" />
+        <TooltipProvider delayDuration={300}>
+          <AppRouter />
+          <Toaster theme="dark" />
+        </TooltipProvider>
       </AuthProvider>
     </QueryClientProvider>
   );
