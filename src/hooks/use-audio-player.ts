@@ -1,6 +1,6 @@
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef } from 'react';
 
-export type PlayerStatus = "idle" | "connecting" | "live" | "offline";
+export type PlayerStatus = 'idle' | 'connecting' | 'live' | 'offline';
 
 // ── Global audio singleton ──────────────────────────────────────────
 // Lives at module scope so it survives component unmounts / re-mounts.
@@ -12,8 +12,8 @@ export function useAudioPlayer(streamUrl: string | undefined) {
   const [volume, setVolume] = useState([80]);
   const [isMuted, setIsMuted] = useState(false);
   const [status, setStatus] = useState<PlayerStatus>(() => {
-    if (!globalAudio.paused) return "live";
-    return "idle";
+    if (!globalAudio.paused) return 'live';
+    return 'idle';
   });
 
   // Keep a ref so event handlers always see the latest streamUrl without
@@ -29,32 +29,31 @@ export function useAudioPlayer(streamUrl: string | undefined) {
 
     const handlePlay = () => setIsPlaying(true);
     const handlePause = () => setIsPlaying(false);
-    const handleCanPlay = () => setStatus("live");
-    const handlePlaying = () => setStatus("live");
-    const handleLoadStart = () => setStatus("connecting");
-    const handleWaiting = () => setStatus("connecting");
+    const handleCanPlay = () => setStatus('live');
+    const handlePlaying = () => setStatus('live');
+    const handleLoadStart = () => setStatus('connecting');
+    const handleWaiting = () => setStatus('connecting');
     const handleError = () => {
-      setStatus("offline");
+      setStatus('offline');
       setIsPlaying(false);
     };
 
-    audio.addEventListener("play", handlePlay);
-    audio.addEventListener("pause", handlePause);
-    audio.addEventListener("canplay", handleCanPlay);
-    audio.addEventListener("playing", handlePlaying);
-    audio.addEventListener("loadstart", handleLoadStart);
-    audio.addEventListener("waiting", handleWaiting);
-    audio.addEventListener("error", handleError);
-
+    audio.addEventListener('play', handlePlay);
+    audio.addEventListener('pause', handlePause);
+    audio.addEventListener('canplay', handleCanPlay);
+    audio.addEventListener('playing', handlePlaying);
+    audio.addEventListener('loadstart', handleLoadStart);
+    audio.addEventListener('waiting', handleWaiting);
+    audio.addEventListener('error', handleError);
 
     return () => {
-      audio.removeEventListener("play", handlePlay);
-      audio.removeEventListener("pause", handlePause);
-      audio.removeEventListener("canplay", handleCanPlay);
-      audio.removeEventListener("playing", handlePlaying);
-      audio.removeEventListener("loadstart", handleLoadStart);
-      audio.removeEventListener("waiting", handleWaiting);
-      audio.removeEventListener("error", handleError);
+      audio.removeEventListener('play', handlePlay);
+      audio.removeEventListener('pause', handlePause);
+      audio.removeEventListener('canplay', handleCanPlay);
+      audio.removeEventListener('playing', handlePlaying);
+      audio.removeEventListener('loadstart', handleLoadStart);
+      audio.removeEventListener('waiting', handleWaiting);
+      audio.removeEventListener('error', handleError);
     };
   }, []);
 
@@ -92,8 +91,8 @@ export function useAudioPlayer(streamUrl: string | undefined) {
     globalAudio.load();
 
     globalAudio.play().catch((err) => {
-      console.error("Playback failed:", err);
-      setStatus("offline");
+      console.error('Playback failed:', err);
+      setStatus('offline');
     });
   }, []);
 
@@ -117,4 +116,3 @@ export function stopGlobalAudio() {
     globalAudio.pause();
   }
 }
-

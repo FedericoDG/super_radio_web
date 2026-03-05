@@ -596,7 +596,7 @@ function ScheduleCard({
   onDelete: () => void;
 }) {
   return (
-    <div className="flex items-center gap-2 sm:gap-4 bg-app-card border border-app-border rounded-xl px-3 sm:px-4 py-3 group hover:border-app-border transition-colors w-full min-w-0 max-w-full overflow-hidden">
+    <div className="flex items-center gap-2 sm:gap-4 bg-app-card border border-app-border rounded-xl px-3 sm:px-4 py-3 group hover:border-app-accent/50 hover:bg-app-surface transition-all duration-300 w-full min-w-0 max-w-full overflow-hidden shadow-sm hover:shadow-md">
       {/* Time badge */}
       <div className="flex items-center gap-2 shrink-0">
         <div className="w-1.5 h-10 bg-app-accent rounded-full" />
