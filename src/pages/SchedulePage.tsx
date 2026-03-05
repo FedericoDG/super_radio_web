@@ -4,6 +4,7 @@ import { toast } from "sonner";
 import { Calendar, Loader2, Plus, Pencil, Trash2, Clock, Copy } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
@@ -319,11 +320,7 @@ export function SchedulePage() {
                         </SheetTitle>
                       </SheetHeader>
 
-                      <form
-                        onSubmit={handleSubmit(onSubmit)}
-                        className="flex-1 flex flex-col min-h-0"
-                        autoComplete="off"
-                      >
+                      <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-6 flex-1" autoComplete="off">
                         {/* Program select */}
                         <div className="space-y-2">
                           <Label htmlFor="sch-program">
@@ -331,7 +328,7 @@ export function SchedulePage() {
                           </Label>
                           <select
                             id="sch-program"
-                            className="w-full rounded-md border border-app-border bg-app-input px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-app-accent"
+                            className="flex h-9 w-full rounded-md border border-app-border bg-app-input px-3 py-1 shadow-sm transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-app-accent disabled:cursor-not-allowed disabled:opacity-50 text-sm text-white [color-scheme:dark]"
                             {...register("programId", { required: "Seleccioná un programa" })}
                           >
                             <option value="" disabled>
@@ -346,43 +343,48 @@ export function SchedulePage() {
                           {errors.programId && (
                             <p className="text-xs text-red-500">{errors.programId.message}</p>
                           )}
+                          <p className="text-[0.8rem] text-app-muted">
+                            Programa que saldrá al aire en este bloque.
+                          </p>
                         </div>
 
                         {/* Times */}
-                        <div className="grid grid-cols-2 gap-4">
-                          <div className="space-y-2">
-                            <Label htmlFor="sch-start">
-                              Inicio <span className="text-red-500">*</span>
-                            </Label>
-                            <input
-                              id="sch-start"
-                              type="time"
-                              lang="en-GB"
-                              className="w-full rounded-md border border-app-border bg-app-input px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-app-accent [color-scheme:dark]"
-                              {...register("startTime", { required: "Requerido" })}
-                            />
-                            {errors.startTime && (
-                              <p className="text-xs text-red-500">{errors.startTime.message}</p>
-                            )}
+                        <div className="space-y-2">
+                          <Label>
+                            Horarios <span className="text-red-500">*</span>
+                          </Label>
+                          <div className="grid grid-cols-2 gap-4">
+                            <div className="space-y-2">
+                              <Input
+                                id="sch-start"
+                                type="time"
+                                lang="en-GB"
+                                className="bg-app-input border-app-border [color-scheme:dark]"
+                                {...register("startTime", { required: "Requerido" })}
+                              />
+                              {errors.startTime && (
+                                <p className="text-xs text-red-500">{errors.startTime.message}</p>
+                              )}
+                            </div>
+                            <div className="space-y-2">
+                              <Input
+                                id="sch-end"
+                                type="time"
+                                lang="en-GB"
+                                className="bg-app-input border-app-border [color-scheme:dark]"
+                                {...register("endTime", { required: "Requerido" })}
+                              />
+                              {errors.endTime && (
+                                <p className="text-xs text-red-500">{errors.endTime.message}</p>
+                              )}
+                            </div>
                           </div>
-                          <div className="space-y-2">
-                            <Label htmlFor="sch-end">
-                              Fin <span className="text-red-500">*</span>
-                            </Label>
-                            <input
-                              id="sch-end"
-                              type="time"
-                              lang="en-GB"
-                              className="w-full rounded-md border border-app-border bg-app-input px-3 py-2 text-sm text-white focus:outline-none focus:ring-2 focus:ring-app-accent [color-scheme:dark]"
-                              {...register("endTime", { required: "Requerido" })}
-                            />
-                            {errors.endTime && (
-                              <p className="text-xs text-red-500">{errors.endTime.message}</p>
-                            )}
-                          </div>
+                          <p className="text-[0.8rem] text-app-muted">
+                            Determina el inicio y el fin del bloque horario.
+                          </p>
                         </div>
 
-                        <div className="mt-auto pt-4 border-t border-app-border">
+                        <div className="mt-8">
                           <Button
                             type="submit"
                             className="w-full bg-app-accent hover:bg-app-accent-hover text-white"
