@@ -315,7 +315,7 @@ function ProgramCard({
                   <Pencil size={14} />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent side="top" className="bg-app-card text-white border-app-border text-xs px-2 py-1">
+              <TooltipContent side="top">
                 Editar programa
               </TooltipContent>
             </Tooltip>
@@ -332,7 +332,7 @@ function ProgramCard({
                   <Trash2 size={14} />
                 </Button>
               </TooltipTrigger>
-              <TooltipContent side="top" className="bg-red-950/80 text-red-400 border-red-900/50 text-xs px-2 py-1">
+              <TooltipContent side="top">
                 Eliminar programa
               </TooltipContent>
             </Tooltip>
