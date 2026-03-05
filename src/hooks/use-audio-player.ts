@@ -19,7 +19,9 @@ export function useAudioPlayer(streamUrl: string | undefined) {
   // Keep a ref so event handlers always see the latest streamUrl without
   // needing to be re-created (avoids stale closures).
   const streamUrlRef = useRef(streamUrl);
-  streamUrlRef.current = streamUrl;
+  useEffect(() => {
+    streamUrlRef.current = streamUrl;
+  }, [streamUrl]);
 
   // ── Sync with global Audio events ──────────────────────────────────
   useEffect(() => {
@@ -44,11 +46,6 @@ export function useAudioPlayer(streamUrl: string | undefined) {
     audio.addEventListener("waiting", handleWaiting);
     audio.addEventListener("error", handleError);
 
-    // Sync initial state on mount (audio might already be playing)
-    setIsPlaying(!audio.paused);
-    if (!audio.paused) {
-      setStatus("live");
-    }
 
     return () => {
       audio.removeEventListener("play", handlePlay);

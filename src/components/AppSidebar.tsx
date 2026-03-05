@@ -1,4 +1,4 @@
-import { Bell, Calendar, Settings, BookOpen, Radio, Menu, LogOut, KeyRound } from "lucide-react";
+import { Bell, Calendar, Settings, Radio, Menu, LogOut, KeyRound, RadioIcon } from "lucide-react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { Button } from "@/components/ui/button";
@@ -71,7 +71,7 @@ function SidebarContent() {
 
       <nav className="space-y-2 text-sm flex-1">
         <SidebarItem icon={<Settings size={16} />} label="Ajustes" to="/panel" />
-        <SidebarItem icon={<BookOpen size={16} />} label="Programas" to="/panel/programs" />
+        <SidebarItem icon={<RadioIcon size={16} />} label="Programas" to="/panel/programs" />
         <SidebarItem icon={<Calendar size={16} />} label="Programación" to="/panel/schedule" />
         <SidebarItem icon={<Bell size={16} />} label="Notificaciones" to="/panel/notify" />
         <SidebarItem icon={<KeyRound size={16} />} label="Mi cuenta" to="/panel/password" />
