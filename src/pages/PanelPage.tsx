@@ -77,9 +77,7 @@ export function PanelPage() {
             </div>
 
             {isLoading ? (
-              <div className="flex items-center justify-center p-12">
-                <Loader2 className="h-8 w-8 animate-spin text-app-accent" />
-              </div>
+              <PanelSkeleton />
             ) : (
               <div className="space-y-8 pb-10">
                 {/* Reproductor de la estación */}
@@ -249,3 +247,75 @@ export function PanelPage() {
   );
 }
 
+function PanelSkeleton() {
+  return (
+    <div className="space-y-8 pb-10">
+      {/* Reproductor placeholder */}
+      <div className="h-24 bg-app-card border border-app-border rounded-xl animate-pulse" />
+
+      {/* Formulario placeholder */}
+      <Card className="bg-app-card border-app-border animate-pulse">
+        <CardHeader>
+          <div className="h-6 bg-slate-800 rounded w-48" />
+        </CardHeader>
+        <CardContent className="space-y-8">
+          {/* Información Básica */}
+          <div>
+            <div className="h-5 bg-slate-800 rounded w-40 mb-4" />
+            <div className="grid gap-6 md:grid-cols-2">
+              <div className="space-y-2">
+                <div className="h-4 bg-slate-800 rounded w-32" />
+                <div className="h-10 bg-app-input border border-app-border rounded-md" />
+                <div className="h-3 bg-slate-800 rounded w-3/4" />
+              </div>
+              <div className="space-y-2">
+                <div className="h-4 bg-slate-800 rounded w-32" />
+                <div className="h-10 bg-app-input border border-app-border rounded-md" />
+                <div className="h-3 bg-slate-800 rounded w-3/4" />
+              </div>
+              <div className="space-y-2 md:col-span-2">
+                <div className="h-4 bg-slate-800 rounded w-24" />
+                <div className="h-24 bg-app-input border border-app-border rounded-md" />
+                <div className="h-3 bg-slate-800 rounded w-1/2" />
+              </div>
+            </div>
+          </div>
+
+          <Separator className="bg-app-border" />
+
+          {/* Media & Links */}
+          <div>
+            <div className="h-5 bg-slate-800 rounded w-32 mb-4" />
+            <div className="grid gap-6 md:grid-cols-2">
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div key={i} className="space-y-2">
+                  <div className="h-4 bg-slate-800 rounded w-24" />
+                  <div className="h-10 bg-app-input border border-app-border rounded-md" />
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <Separator className="bg-app-border" />
+
+          {/* Ubicación y Contacto */}
+          <div>
+            <div className="h-5 bg-slate-800 rounded w-48 mb-4" />
+            <div className="grid gap-6 md:grid-cols-2">
+              {Array.from({ length: 9 }).map((_, i) => (
+                <div key={i} className={`space-y-2 ${i === 4 ? "md:col-span-2" : ""}`}>
+                  <div className="h-4 bg-slate-800 rounded w-24" />
+                  <div className="h-10 bg-app-input border border-app-border rounded-md" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </CardContent>
+
+        <div className="flex justify-end px-6 pb-6">
+          <div className="h-10 bg-slate-800 rounded w-40" />
+        </div>
+      </Card>
+    </div>
+  );
+}

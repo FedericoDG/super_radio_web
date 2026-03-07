@@ -35,13 +35,13 @@ import type { WeeklySchedule } from "@/types";
 /* ─── Constants ───────────────────────────────────────────────────────── */
 
 const DAYS: { label: string; short: string; initial: string; value: number; }[] = [
-  { label: "Lunes", short: "Lun", initial: "Lun", value: 1 },
-  { label: "Martes", short: "Mar", initial: "Mar", value: 2 },
-  { label: "Miércoles", short: "Mié", initial: "Mié", value: 3 },
-  { label: "Jueves", short: "Jue", initial: "Jue", value: 4 },
-  { label: "Viernes", short: "Vie", initial: "Vie", value: 5 },
-  { label: "Sábado", short: "Sáb", initial: "Sáb", value: 6 },
-  { label: "Domingo", short: "Dom", initial: "Dom", value: 0 },
+  { label: "Lunes", short: "Lun", initial: "L", value: 1 },
+  { label: "Martes", short: "Mar", initial: "M", value: 2 },
+  { label: "Miércoles", short: "Mié", initial: "X", value: 3 },
+  { label: "Jueves", short: "Jue", initial: "J", value: 4 },
+  { label: "Viernes", short: "Vie", initial: "V", value: 5 },
+  { label: "Sábado", short: "Sáb", initial: "S", value: 6 },
+  { label: "Domingo", short: "Dom", initial: "D", value: 0 },
 ];
 
 /* ─── Helpers ─────────────────────────────────────────────────────────── */
