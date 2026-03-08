@@ -35,13 +35,13 @@ import type { WeeklySchedule } from "@/types";
 /* ─── Constants ───────────────────────────────────────────────────────── */
 
 const DAYS: { label: string; short: string; initial: string; value: number; }[] = [
-  { label: "Lunes", short: "Lun", initial: "L", value: 1 },
-  { label: "Martes", short: "Mar", initial: "M", value: 2 },
-  { label: "Miércoles", short: "Mié", initial: "X", value: 3 },
-  { label: "Jueves", short: "Jue", initial: "J", value: 4 },
-  { label: "Viernes", short: "Vie", initial: "V", value: 5 },
-  { label: "Sábado", short: "Sáb", initial: "S", value: 6 },
-  { label: "Domingo", short: "Dom", initial: "D", value: 0 },
+  { label: "Lunes", short: "Lun", initial: "Lun", value: 1 },
+  { label: "Martes", short: "Mar", initial: "Mar", value: 2 },
+  { label: "Miércoles", short: "Mié", initial: "Mié", value: 3 },
+  { label: "Jueves", short: "Jue", initial: "Jue", value: 4 },
+  { label: "Viernes", short: "Vie", initial: "Vie", value: 5 },
+  { label: "Sábado", short: "Sáb", initial: "Sáb", value: 6 },
+  { label: "Domingo", short: "Dom", initial: "Dom", value: 0 },
 ];
 
 /* ─── Helpers ─────────────────────────────────────────────────────────── */
@@ -239,7 +239,7 @@ export function SchedulePage() {
                 </p>
               </div>
               <Button
-                variant="destructive" className="shrink-0 gap-2 self-start"
+                variant="destructive" className="shrink-0 gap-2 self-end sm:self-start"
                 onClick={() => setDeleteAllOpen(true)}
                 disabled={schedules.length === 0}
               >
@@ -249,33 +249,35 @@ export function SchedulePage() {
             </div>
 
             {/* Day tabs */}
-            <div className="flex gap-1 overflow-x-auto pb-1 scrollbar-none">
-              {DAYS.map((day) => {
-                const count = schedules.filter((s) => s.dayOfWeek === day.value).length;
-                const isActive = activeDay === day.value;
-                return (
-                  <button
-                    key={day.value}
-                    onClick={() => setActiveDay(day.value)}
-                    className={`flex items-center gap-1 sm:gap-1.5 px-2 sm:px-3 py-2 rounded-lg text-xs sm:text-sm font-medium whitespace-nowrap transition-colors shrink-0 ${isActive
-                      ? "bg-app-accent text-white"
-                      : "bg-app-card text-app-muted hover:bg-app-border hover:text-white"
-                      }`}
-                  >
-                    <span className="hidden md:inline">{day.label}</span>
-                    <span className="hidden sm:inline md:hidden">{day.short}</span>
-                    <span className="sm:hidden">{day.initial}</span>
-                    {count > 0 && (
-                      <span
-                        className={`text-[10px] font-bold rounded-full px-1.5 py-0.5 leading-none ${isActive ? "bg-white/20 text-white" : "bg-slate-700 text-slate-300"
-                          }`}
-                      >
-                        {count}
-                      </span>
-                    )}
-                  </button>
-                );
-              })}
+            <div className="w-full overflow-x-auto pb-2 scrollbar-none">
+              <div className="flex gap-2 sm:gap-1">
+                {DAYS.map((day) => {
+                  const count = schedules.filter((s) => s.dayOfWeek === day.value).length;
+                  const isActive = activeDay === day.value;
+                  return (
+                    <button
+                      key={day.value}
+                      onClick={() => setActiveDay(day.value)}
+                      className={`flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-1.5 px-1 py-1 sm:px-3 sm:py-2 rounded-lg font-medium transition-colors shrink-0 min-w-[2.5rem] sm:min-w-0 ${isActive
+                        ? "bg-app-accent text-white"
+                        : "bg-app-card text-app-muted hover:bg-app-border hover:text-white"
+                        }`}
+                    >
+                      <span className="hidden md:inline text-sm">{day.label}</span>
+                      <span className="hidden sm:inline md:hidden text-sm">{day.short}</span>
+                      <span className="sm:hidden text-sm leading-none">{day.initial}</span>
+                      {count > 0 && (
+                        <span
+                          className={`text-[11px] font-bold rounded-full px-2 py-0.5 leading-none mt-0.5 sm:mt-0 ${isActive ? "bg-white/20 text-white" : "bg-slate-700 text-slate-300"
+                            }`}
+                        >
+                          {count}
+                        </span>
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             {/* Day content */}
