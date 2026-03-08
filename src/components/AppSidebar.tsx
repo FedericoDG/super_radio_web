@@ -4,6 +4,9 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { useAuth } from "@/context/AuthContext";
+import { useQueryClient } from "@tanstack/react-query";
+import { fetchPrograms } from "@/hooks/use-programs";
+import { fetchSchedules } from "@/hooks/use-schedules";
 
 /* ─── SidebarItem ─────────────────────────────────────────────────────── */
 
@@ -12,11 +15,13 @@ function SidebarItem({
   label,
   to,
   onClick,
+  onMouseEnter,
 }: {
   icon: React.ReactNode;
   label: string;
   to?: string;
   onClick?: () => void;
+  onMouseEnter?: () => void;
 }) {
   const { pathname } = useLocation();
   const active =
@@ -36,7 +41,7 @@ function SidebarItem({
 
   if (to) {
     return (
-      <Link to={to} className={className} onClick={onClick}>
+      <Link to={to} className={className} onClick={onClick} onMouseEnter={onMouseEnter}>
         {content}
       </Link>
     );
@@ -52,12 +57,33 @@ function SidebarItem({
 /* ─── SidebarContent ──────────────────────────────────────────────────── */
 
 function SidebarContent() {
-  const { logout } = useAuth();
+  const { logout, stationId } = useAuth();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const handleLogout = () => {
     logout();
     navigate("/");
+  };
+
+  const handlePrefetchPrograms = () => {
+    if (stationId) {
+      queryClient.prefetchQuery({
+        queryKey: ["programs", stationId],
+        queryFn: () => fetchPrograms(stationId),
+        staleTime: 1000 * 60 * 5,
+      });
+    }
+  };
+
+  const handlePrefetchSchedules = () => {
+    if (stationId) {
+      queryClient.prefetchQuery({
+        queryKey: ["schedules", stationId],
+        queryFn: () => fetchSchedules(stationId),
+        staleTime: 1000 * 60 * 5,
+      });
+    }
   };
 
   return (
@@ -71,8 +97,8 @@ function SidebarContent() {
 
       <nav className="space-y-2 text-sm flex-1">
         <SidebarItem icon={<Settings size={16} />} label="Ajustes" to="/panel" />
-        <SidebarItem icon={<RadioIcon size={16} />} label="Programas" to="/panel/programs" />
-        <SidebarItem icon={<Calendar size={16} />} label="Programación" to="/panel/schedule" />
+        <SidebarItem icon={<RadioIcon size={16} />} label="Programas" to="/panel/programs" onMouseEnter={handlePrefetchPrograms} />
+        <SidebarItem icon={<Calendar size={16} />} label="Programación" to="/panel/schedule" onMouseEnter={handlePrefetchSchedules} />
         <SidebarItem icon={<Bell size={16} />} label="Notificaciones" to="/panel/notify" />
         <SidebarItem icon={<KeyRound size={16} />} label="Mi cuenta" to="/panel/password" />
       </nav>

@@ -9,6 +9,13 @@ import type {
   DeleteProgramInput,
 } from "@/types";
 
+/* ─── Fetchers ────────────────────────────────────────────────────────── */
+
+export const fetchPrograms = async (stationId: string) => {
+  const { data } = await api.get<ProgramsApiResponse>(`/stations/${stationId}/programs`);
+  return data.data.programs;
+};
+
 /* ─── Queries ─────────────────────────────────────────────────────────── */
 
 export function useProgramsQuery(stationId: string | null) {
@@ -16,10 +23,7 @@ export function useProgramsQuery(stationId: string | null) {
     queryKey: ["programs", stationId],
     queryFn: async () => {
       if (!stationId) throw new Error("No station ID provided");
-      const { data } = await api.get<ProgramsApiResponse>(
-        `/stations/${stationId}/programs`
-      );
-      return data.data.programs;
+      return fetchPrograms(stationId);
     },
     enabled: !!stationId,
   });

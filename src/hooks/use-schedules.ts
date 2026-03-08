@@ -9,6 +9,13 @@ import type {
   DeleteAllSchedulesInput,
 } from "@/types";
 
+/* ─── Fetchers ────────────────────────────────────────────────────────── */
+
+export const fetchSchedules = async (stationId: string) => {
+  const { data } = await api.get<SchedulesApiResponse>(`/stations/${stationId}/schedules`);
+  return data.data.schedules;
+};
+
 /* ─── Query ───────────────────────────────────────────────────────────── */
 
 export function useSchedulesQuery(stationId: string | null) {
@@ -16,10 +23,7 @@ export function useSchedulesQuery(stationId: string | null) {
     queryKey: ["schedules", stationId],
     queryFn: async () => {
       if (!stationId) throw new Error("No station ID provided");
-      const { data } = await api.get<SchedulesApiResponse>(
-        `/stations/${stationId}/schedules`
-      );
-      return data.data.schedules;
+      return fetchSchedules(stationId);
     },
     enabled: !!stationId,
   });
