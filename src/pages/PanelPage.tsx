@@ -211,8 +211,8 @@ export function PanelPage() {
                             <p className="text-[0.8rem] text-app-muted">Número celular configurado para recibir mensajes a la radio.</p>
                           </div>
                           <div className="space-y-2">
-                            <Label htmlFor="dayStartTime">Hora inicio día (ej: 06:00)</Label>
-                            <Input id="dayStartTime" placeholder="Ej: 06:00" className="bg-app-input border-app-border" {...register("dayStartTime")} />
+                            <Label htmlFor="dayStartTime">Hora inicio día</Label>
+                            <Input id="dayStartTime" type="time" className="bg-app-input border-app-border" {...register("dayStartTime")} />
                             <p className="text-[0.8rem] text-app-muted">
                               Controla a qué hora comienza visualmente el calendario de programación en la app móvil.
                             </p>
